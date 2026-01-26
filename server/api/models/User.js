@@ -254,6 +254,9 @@ const PERSONAL_FIELD_NAMES = [
   'defaultEditorMode',
   'defaultHomeView',
   'defaultProjectsOrder',
+  'themeCardBackgroundColor',
+  'themeCardHoverColor',
+  'themeCardShadowColor',
 ];
 
 const INTERNAL = {
@@ -376,6 +379,24 @@ module.exports = {
       isIn: Object.values(ProjectOrders),
       defaultsTo: ProjectOrders.BY_DEFAULT,
       columnName: 'default_projects_order',
+    },
+    themeCardBackgroundColor: {
+      type: 'string',
+      isNotEmptyString: true,
+      allowNull: true,
+      columnName: 'theme_card_background_color',
+    },
+    themeCardHoverColor: {
+      type: 'string',
+      isNotEmptyString: true,
+      allowNull: true,
+      columnName: 'theme_card_hover_color',
+    },
+    themeCardShadowColor: {
+      type: 'string',
+      isNotEmptyString: true,
+      allowNull: true,
+      columnName: 'theme_card_shadow_color',
     },
     termsSignature: {
       type: 'string',

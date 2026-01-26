@@ -95,6 +95,24 @@
  *                 enum: [byDefault, alphabetically, byCreationTime]
  *                 description: Default sort order for projects display
  *                 example: byDefault
+ *               themeCardBackgroundColor:
+ *                 type: string
+ *                 nullable: true
+ *                 pattern: "^#[0-9A-Fa-f]{6}$"
+ *                 description: Hex color code for card background (e.g., #f8f9fa)
+ *                 example: "#f8f9fa"
+ *               themeCardHoverColor:
+ *                 type: string
+ *                 nullable: true
+ *                 pattern: "^#[0-9A-Fa-f]{6}$"
+ *                 description: Hex color code for card hover state (e.g., #f1f3f5)
+ *                 example: "#f1f3f5"
+ *               themeCardShadowColor:
+ *                 type: string
+ *                 nullable: true
+ *                 pattern: "^rgba?\\([^)]+\\)$|^#[0-9A-Fa-f]{6}$"
+ *                 description: Color for card shadow (hex or rgba, e.g., rgba(0, 0, 0, 0.08))
+ *                 example: "rgba(0, 0, 0, 0.08)"
  *               isDeactivated:
  *                 type: boolean
  *                 description: Whether the user account is deactivated and cannot log in (for admins)
@@ -200,6 +218,24 @@ module.exports = {
       type: 'string',
       isIn: Object.values(User.ProjectOrders),
     },
+    themeCardBackgroundColor: {
+      type: 'string',
+      isNotEmptyString: true,
+      allowNull: true,
+      regex: /^#[0-9A-Fa-f]{6}$/,
+    },
+    themeCardHoverColor: {
+      type: 'string',
+      isNotEmptyString: true,
+      allowNull: true,
+      regex: /^#[0-9A-Fa-f]{6}$/,
+    },
+    themeCardShadowColor: {
+      type: 'string',
+      isNotEmptyString: true,
+      allowNull: true,
+      regex: /^rgba?\([^)]+\)$|^#[0-9A-Fa-f]{6}$/,
+    },
     isDeactivated: {
       type: 'boolean',
     },
@@ -274,6 +310,9 @@ module.exports = {
         'defaultEditorMode',
         'defaultHomeView',
         'defaultProjectsOrder',
+        'themeCardBackgroundColor',
+        'themeCardHoverColor',
+        'themeCardShadowColor',
         'isDeactivated',
       ]),
     };

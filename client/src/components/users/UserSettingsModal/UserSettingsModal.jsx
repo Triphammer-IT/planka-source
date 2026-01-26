@@ -12,6 +12,7 @@ import entryActions from '../../../entry-actions';
 import { useClosableModal } from '../../../hooks';
 import AccountPane from './AccountPane';
 import PreferencesPane from './PreferencesPane';
+import ThemePane from './ThemePane';
 import NotificationsPane from './NotificationsPane';
 
 const UserSettingsModal = React.memo(() => {
@@ -36,6 +37,12 @@ const UserSettingsModal = React.memo(() => {
         context: 'title',
       }),
       render: () => <PreferencesPane />,
+    },
+    {
+      menuItem: t('common.theme', {
+        defaultValue: 'Theme',
+      }),
+      render: () => <ThemePane />,
     },
     {
       menuItem: t('common.notifications', {

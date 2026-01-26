@@ -95,6 +95,7 @@ module.exports.routes = {
   'POST /api/users/:id/avatar': 'users/update-avatar',
   'POST /api/users/:id/api-key': 'users/create-api-key',
   'DELETE /api/users/:id': 'users/delete',
+  'GET /api/users/me/theme.css': 'users/theme-css',
 
   'GET /api/projects': 'projects/index',
   'POST /api/projects': 'projects/create',

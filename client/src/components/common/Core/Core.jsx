@@ -11,6 +11,7 @@ import { Loader } from 'semantic-ui-react';
 import selectors from '../../../selectors';
 import version from '../../../version';
 import ModalTypes from '../../../constants/ModalTypes';
+import useThemeCss from '../../../hooks/useThemeCss';
 import Message from './Message';
 import Toaster from '../Toaster';
 import Fixed from '../Fixed';
@@ -36,6 +37,9 @@ const Core = React.memo(() => {
   });
 
   const [t] = useTranslation();
+
+  // Inject user theme CSS
+  useThemeCss();
 
   const defaultTitleRef = useRef(document.title);
 

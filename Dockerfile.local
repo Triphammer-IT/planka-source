@@ -1,0 +1,28 @@
+# Dockerfile for local testing - uses existing Planka image as base
+# This avoids pulling base images from Docker Hub
+
+FROM ghcr.io/plankanban/planka:latest AS base
+
+# Stage 1: Server build (if we need to rebuild server)
+FROM node:22-alpine AS server-build
+RUN apk -U upgrade && apk add build-base python3 --no-cache
+WORKDIR /app
+COPY server .
+RUN npm install npm --global && npm install && npm run build && npm prune --production
+
+# Stage 2: Client build (if we need to rebuild client)  
+FROM node:22 AS client-build
+WORKDIR /app
+COPY client .
+RUN npm install npm --global && npm install --omit=dev && DISABLE_ESLINT_PLUGIN=true npm run build
+
+# Stage 3: Final image - copy from base and add our changes
+FROM base
+
+# Copy our modified server files
+COPY --from=server-build --chown=node:node /app/node_modules /app/node_modules
+COPY --from=server-build --chown=node:node /app/dist /app/dist
+
+# Copy our modified client files
+COPY --from=client-build --chown=node:node /app/dist /app/public
+COPY --from=client-build --chown=node:node /app/dist/index.html /app/views/index.ejs

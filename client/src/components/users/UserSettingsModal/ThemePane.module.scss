@@ -1,0 +1,120 @@
+/*!
+ * Copyright (c) 2024 PLANKA Software GmbH
+ * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
+ */
+
+:global(#app) {
+  .wrapper {
+    border: none;
+    box-shadow: none;
+  }
+}
+
+.container {
+  padding: 16px 0;
+}
+
+.section {
+  margin-bottom: 32px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  h4 {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2d3748;
+  }
+}
+
+.colorPickerRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.colorInput {
+  width: 60px;
+  height: 40px;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 4px;
+  }
+}
+
+.colorTextInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: monospace;
+
+  &:focus {
+    outline: none;
+    border-color: #1973ff;
+    box-shadow: 0 0 0 2px rgba(25, 115, 255, 0.1);
+  }
+}
+
+.helpText {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.previewContainer {
+  padding: 16px;
+  background-color: #f6f7f9;
+  border-radius: 8px;
+  min-height: 120px;
+}
+
+.previewCard {
+  background-color: var(--card-bg, #f8f9fa);
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 16px;
+  box-shadow: 0 1px 3px var(--card-shadow, rgba(0, 0, 0, 0.08));
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--card-hover, #f1f3f5);
+    box-shadow: 0 2px 6px var(--card-shadow, rgba(0, 0, 0, 0.08));
+    transform: translateY(-1px);
+  }
+}
+
+.previewCardTitle {
+  font-weight: 600;
+  font-size: 14px;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.previewCardContent {
+  font-size: 13px;
+  color: #6c757d;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e9ecef;
+}
