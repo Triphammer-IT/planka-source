@@ -31,7 +31,6 @@ RUN apk -U upgrade \
   && apk add bash python3 --no-cache \
   && npm install npm --global
 
-USER node
 WORKDIR /app
 
 COPY --chown=node:node LICENSE.md .
@@ -43,11 +42,15 @@ COPY --from=server --chown=node:node /app/dist .
 COPY --from=client --chown=node:node /app/dist public
 COPY --from=client --chown=node:node /app/dist/index.html views
 
+# Create venv and .env as root so /app is writable; then chown for node runtime
 RUN python3 -m venv .venv \
   && .venv/bin/pip3 install --upgrade pip \
   && .venv/bin/pip3 install -r requirements.txt --no-cache-dir \
   && mv .env.sample .env \
-  && npm config set update-notifier false
+  && npm config set update-notifier false \
+  && chown -R node:node /app
+
+USER node
 
 VOLUME /app/public/favicons
 VOLUME /app/public/user-avatars
