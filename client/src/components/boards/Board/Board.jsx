@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Loader } from 'semantic-ui-react';
 
 import selectors from '../../../selectors';
 import ModalTypes from '../../../constants/ModalTypes';
@@ -20,6 +21,10 @@ const Board = React.memo(() => {
   const board = useSelector(selectors.selectCurrentBoard);
   const modal = useSelector(selectors.selectCurrentModal);
   const isCardModalOpened = useSelector((state) => !!selectors.selectPath(state).cardId);
+
+  if (!board) {
+    return <Loader active size="big" />;
+  }
 
   let Content;
   if (board.view === BoardViews.KANBAN) {
@@ -37,6 +42,10 @@ const Board = React.memo(() => {
         break;
       default:
     }
+  }
+
+  if (!Content) {
+    return <Loader active size="big" />;
   }
 
   let modalNode = null;
