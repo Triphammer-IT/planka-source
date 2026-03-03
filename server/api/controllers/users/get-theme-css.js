@@ -8,8 +8,10 @@
  * Requires authentication. Returns text/css with CSS custom properties for card styling.
  */
 
+const DEFAULT_CARD_BG = 'rgba(255, 255, 255, 0.5)';
+
 const DEFAULT_THEME = {
-  cardBackground: 'rgba(255, 255, 255, 0.5)',
+  cardBackground: DEFAULT_CARD_BG,
   cardBorder: 'rgba(0, 0, 0, 0.08)',
   cardShadow: '0 1px 2px rgba(0, 0, 0, 0.06)',
   cardHoverBackground: 'rgba(255, 255, 255, 0.65)',
@@ -24,11 +26,11 @@ const Errors = {
 
 function buildThemeCss(theme) {
   const t = { ...DEFAULT_THEME, ...theme };
+  const useFloatingDefault = t.cardBackground === DEFAULT_CARD_BG;
   return `:root {
-  --planka-card-background: ${t.cardBackground};
+  ${useFloatingDefault ? '--planka-card-bg-alpha: 0.5;\n  --planka-card-hover-bg-alpha: 0.65;' : `--planka-card-background: ${t.cardBackground};\n  --planka-card-hover-background: ${t.cardHoverBackground};`}
   --planka-card-border: ${t.cardBorder};
   --planka-card-shadow: ${t.cardShadow};
-  --planka-card-hover-background: ${t.cardHoverBackground};
   --planka-card-hover-shadow: ${t.cardHoverShadow};
 }
 `;

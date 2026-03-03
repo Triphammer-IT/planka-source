@@ -134,7 +134,7 @@
   }
 
   .headerCollapseButton {
-    background: rgba(0, 0, 0, 0.28);
+    background: rgba(0, 0, 0, 0.24);
     border: none;
     border-radius: 3px;
     color: rgba(255, 255, 255, 0.85);
@@ -145,7 +145,7 @@
     transition: background 85ms ease-in;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.36);
+      background: rgba(0, 0, 0, 0.32);
       color: rgba(255, 255, 255, 0.95);
     }
   }
