@@ -133,6 +133,27 @@
     }
   }
 
+  .headerCollapseButton {
+    background: rgba(0, 0, 0, 0.28);
+    border: none;
+    border-radius: 3px;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    margin: 0;
+    opacity: 1;
+    padding: 4px;
+    transition: background 85ms ease-in;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.36);
+      color: rgba(255, 255, 255, 0.95);
+    }
+  }
+
+  .headerCollapseIcon {
+    color: inherit;
+  }
+
   .headerIcon {
     color: rgba(255, 255, 255, 0.72);
     position: absolute;

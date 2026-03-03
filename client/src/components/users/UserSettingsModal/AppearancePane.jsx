@@ -14,11 +14,11 @@ import entryActions from '../../../entry-actions';
 import styles from './AppearancePane.module.scss';
 
 const DEFAULT_THEME = {
-  cardBackground: '#f8f9fa',
-  cardBorder: '#e9ecef',
-  cardShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-  cardHoverBackground: '#f1f3f5',
-  cardHoverShadow: '0 2px 6px rgba(0, 0, 0, 0.12)',
+  cardBackground: 'rgba(255, 255, 255, 0.5)',
+  cardBorder: 'rgba(0, 0, 0, 0.08)',
+  cardShadow: '0 1px 2px rgba(0, 0, 0, 0.06)',
+  cardHoverBackground: 'rgba(255, 255, 255, 0.65)',
+  cardHoverShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
 };
 
 const THEME_KEYS = [
@@ -56,6 +56,10 @@ const AppearancePane = React.memo(() => {
     THEME_KEYS.some((key) => formTheme[key] !== (savedTheme[key] ?? DEFAULT_THEME[key])) ||
     (Object.keys(savedTheme).length === 0 && THEME_KEYS.some((key) => formTheme[key] !== DEFAULT_THEME[key]));
 
+  // type="color" only accepts hex; use fallback for rgba defaults
+  const colorInputValue = (key) =>
+    (formTheme[key] && formTheme[key].startsWith('rgba') ? '#ffffff' : formTheme[key]) || '#ffffff';
+
   return (
     <Tab.Pane attached={false} className={styles.wrapper}>
       <div className={styles.previewSection}>
@@ -89,7 +93,7 @@ const AppearancePane = React.memo(() => {
           id="theme-cardBackground"
           type="color"
           className={styles.colorInput}
-          value={formTheme.cardBackground}
+          value={colorInputValue('cardBackground')}
           onChange={(e) => handleChange('cardBackground', e.target.value)}
         />
         <input
@@ -107,7 +111,7 @@ const AppearancePane = React.memo(() => {
           id="theme-cardBorder"
           type="color"
           className={styles.colorInput}
-          value={formTheme.cardBorder}
+          value={colorInputValue('cardBorder')}
           onChange={(e) => handleChange('cardBorder', e.target.value)}
         />
         <input
@@ -137,7 +141,7 @@ const AppearancePane = React.memo(() => {
           id="theme-cardHoverBackground"
           type="color"
           className={styles.colorInput}
-          value={formTheme.cardHoverBackground}
+          value={colorInputValue('cardHoverBackground')}
           onChange={(e) => handleChange('cardHoverBackground', e.target.value)}
         />
         <input
