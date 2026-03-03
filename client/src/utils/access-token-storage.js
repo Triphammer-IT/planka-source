@@ -8,6 +8,13 @@ import { jwtDecode } from 'jwt-decode';
 
 import Config from '../constants/Config';
 
+/**
+ * In cross-origin dev (e.g. Vite on :3000, API on :8080), use sameSite: 'lax'
+ * so the cookie is sent with fetch() to the API after a hard reload. Strict
+ * would block the cookie on that cross-origin request and bootstrap fails.
+ */
+const cookieSameSite = Config.SERVER_BASE_URL ? 'lax' : 'strict';
+
 export const setAccessToken = (accessToken) => {
   const { exp } = jwtDecode(accessToken);
   const expires = new Date(exp * 1000);
@@ -15,7 +22,7 @@ export const setAccessToken = (accessToken) => {
   Cookies.set(Config.ACCESS_TOKEN_KEY, accessToken, {
     expires,
     secure: window.location.protocol === 'https:',
-    sameSite: 'strict',
+    sameSite: cookieSameSite,
   });
 
   Cookies.set(Config.ACCESS_TOKEN_VERSION_KEY, Config.ACCESS_TOKEN_VERSION, {
