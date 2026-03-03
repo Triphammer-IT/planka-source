@@ -10,6 +10,16 @@
 
 const DEFAULT_CARD_BG = 'rgba(255, 255, 255, 0.5)';
 
+/** Legacy defaults: treat as floating so card uses alpha without user having to reset. */
+const LEGACY_DEFAULT_CARD_BACKGROUNDS = new Set([
+  '#f8f9fa',
+  '#f1f3f5',
+  '#ebeef0',
+  '#e2e4e6',
+  'rgb(248, 249, 250)',
+  'rgb(241, 243, 245)',
+]);
+
 const DEFAULT_THEME = {
   cardBackground: DEFAULT_CARD_BG,
   cardBorder: 'rgba(0, 0, 0, 0.08)',
@@ -26,7 +36,9 @@ const Errors = {
 
 function buildThemeCss(theme) {
   const t = { ...DEFAULT_THEME, ...theme };
-  const useFloatingDefault = t.cardBackground === DEFAULT_CARD_BG;
+  const normalizedBg = (t.cardBackground || '').trim().toLowerCase();
+  const useFloatingDefault =
+    t.cardBackground === DEFAULT_CARD_BG || LEGACY_DEFAULT_CARD_BACKGROUNDS.has(normalizedBg);
   return `:root {
   ${useFloatingDefault ? '--planka-card-bg-alpha: 0.5;\n  --planka-card-hover-bg-alpha: 0.65;' : `--planka-card-background: ${t.cardBackground};\n  --planka-card-hover-background: ${t.cardHoverBackground};`}
   --planka-card-border: ${t.cardBorder};
