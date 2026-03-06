@@ -32,7 +32,13 @@ const createMessage = (error) => {
     return error;
   }
 
-  switch (error.message) {
+  // Server can return 403/409 with body like { notEnoughRights: '...' } or { activeLimitReached: '...' }
+  const message =
+    typeof error.message === 'string'
+      ? error.message
+      : error.notEnoughRights || error.activeLimitReached || null;
+
+  switch (message) {
     case 'Email already in use':
       return {
         type: 'error',
@@ -42,6 +48,16 @@ const createMessage = (error) => {
       return {
         type: 'error',
         content: 'common.usernameAlreadyInUse',
+      };
+    case 'Not enough rights':
+      return {
+        type: 'error',
+        content: 'common.notEnoughRightsCreateUser',
+      };
+    case 'Active limit reached':
+      return {
+        type: 'error',
+        content: 'common.activeUsersLimitReached',
       };
     default:
       return {
