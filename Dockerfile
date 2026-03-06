@@ -20,7 +20,10 @@ WORKDIR /app
 
 COPY client .
 
-RUN npm install npm --global \
+# Remove dev .env so the built client uses same-origin /api (no VITE_SERVER_BASE_URL baked in).
+# Otherwise a .env with e.g. VITE_SERVER_BASE_URL=http://10.17.1.15:1337 gets copied and breaks production.
+RUN rm -f .env \
+  && npm install npm --global \
   && npm install --omit=dev \
   && DISABLE_ESLINT_PLUGIN=true npm run build
 
