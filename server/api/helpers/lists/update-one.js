@@ -155,7 +155,10 @@ module.exports = {
       if (_.isUndefined(val)) delete listValues[key];
     });
 
-    const { list, tasks } = await List.qm.updateOne(inputs.record.id, listValues);
+    const { list, tasks } = await List.qm.updateOne(
+      { id: inputs.record.id },
+      listValues,
+    );
 
     if (list) {
       if (values.board) {

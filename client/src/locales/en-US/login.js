@@ -18,9 +18,15 @@ export default {
       password: 'Password',
       poweredByPlanka: 'Powered by <1>PLANKA</1>',
       serverConnectionFailed: 'Server connection failed',
+      serverError: 'Server error. Please try again or check server logs.',
       unknownError: 'Unknown error, try again later',
       useSingleSignOn: 'Use single sign-on',
       usernameAlreadyInUse: 'Username already in use',
+      validationInvalidEmail: 'Please enter a valid email address.',
+      validationNameRequired: 'Name is required.',
+      validationPasswordTooWeak: 'Password is too weak. Use a longer password with mixed characters.',
+      validationUsernameInvalid:
+        'Username must be 3–32 characters (letters, numbers, underscores, periods).',
       whoops_title: 'Whoops!',
     },
 

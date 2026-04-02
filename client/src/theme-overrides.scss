@@ -1,0 +1,132 @@
+/*!
+ * Copyright (c) 2024 PLANKA Software GmbH
+ * Licensed under the Fair Use License: https://github.com/plankanban/planka/blob/master/LICENSE.md
+ *
+ * Override Semantic UI green/positive buttons to use primary blue (#2185d0)
+ * so the default action color matches the Apply button in Settings → Appearance.
+ * Plain selectors (no :global) so compiled CSS is valid and applied.
+ */
+
+/* Green → primary blue (standard) */
+.ui.green.buttons .button,
+.ui.green.button {
+  background-color: #2185d0 !important;
+}
+
+.ui.green.buttons .button:hover,
+.ui.green.button:hover {
+  background-color: #1678c2 !important;
+}
+
+.ui.green.buttons .button:focus,
+.ui.green.button:focus {
+  background-color: #0d71bb !important;
+}
+
+.ui.green.buttons .button:active,
+.ui.green.button:active {
+  background-color: #1a69a4 !important;
+}
+
+.ui.green.buttons .active.button,
+.ui.green.buttons .active.button:active,
+.ui.green.active.button {
+  background-color: #1279c6 !important;
+}
+
+.ui.basic.green.buttons .button,
+.ui.basic.green.button {
+  -webkit-box-shadow: 0 0 0 1px #2185d0 inset !important;
+  box-shadow: 0 0 0 1px #2185d0 inset !important;
+  color: #2185d0 !important;
+}
+
+.ui.basic.green.buttons .button:hover,
+.ui.basic.green.button:hover {
+  -webkit-box-shadow: 0 0 0 1px #1678c2 inset !important;
+  box-shadow: 0 0 0 1px #1678c2 inset !important;
+  color: #1678c2 !important;
+}
+
+.ui.basic.green.buttons .button:focus,
+.ui.basic.green.button:focus {
+  -webkit-box-shadow: 0 0 0 1px #0d71bb inset !important;
+  box-shadow: 0 0 0 1px #0d71bb inset !important;
+  color: #1678c2 !important;
+}
+
+.ui.basic.green.buttons .active.button,
+.ui.basic.green.active.button {
+  -webkit-box-shadow: 0 0 0 1px #1279c6 inset !important;
+  box-shadow: 0 0 0 1px #1279c6 inset !important;
+  color: #1a69a4 !important;
+}
+
+.ui.basic.green.buttons .button:active,
+.ui.basic.green.button:active {
+  -webkit-box-shadow: 0 0 0 1px #1a69a4 inset !important;
+  box-shadow: 0 0 0 1px #1a69a4 inset !important;
+  color: #1a69a4 !important;
+}
+
+/* Positive → primary blue (same as green) */
+.ui.positive.buttons .button,
+.ui.positive.button {
+  background-color: #2185d0 !important;
+}
+
+.ui.positive.buttons .button:hover,
+.ui.positive.button:hover {
+  background-color: #1678c2 !important;
+}
+
+.ui.positive.buttons .button:focus,
+.ui.positive.button:focus {
+  background-color: #0d71bb !important;
+}
+
+.ui.positive.buttons .button:active,
+.ui.positive.button:active {
+  background-color: #1a69a4 !important;
+}
+
+.ui.positive.buttons .active.button,
+.ui.positive.buttons .active.button:active,
+.ui.positive.active.button {
+  background-color: #1279c6 !important;
+}
+
+.ui.basic.positive.buttons .button,
+.ui.basic.positive.button {
+  -webkit-box-shadow: 0 0 0 1px #2185d0 inset !important;
+  box-shadow: 0 0 0 1px #2185d0 inset !important;
+  color: #2185d0 !important;
+}
+
+.ui.basic.positive.buttons .button:hover,
+.ui.basic.positive.button:hover {
+  -webkit-box-shadow: 0 0 0 1px #1678c2 inset !important;
+  box-shadow: 0 0 0 1px #1678c2 inset !important;
+  color: #1678c2 !important;
+}
+
+.ui.basic.positive.buttons .button:focus,
+.ui.basic.positive.button:focus {
+  -webkit-box-shadow: 0 0 0 1px #0d71bb inset !important;
+  box-shadow: 0 0 0 1px #0d71bb inset !important;
+  color: #1678c2 !important;
+}
+
+.ui.basic.positive.buttons .active.button,
+.ui.basic.positive.active.button {
+  -webkit-box-shadow: 0 0 0 1px #1279c6 inset !important;
+  box-shadow: 0 0 0 1px #1279c6 inset !important;
+  color: #1a69a4 !important;
+}
+
+.ui.basic.positive.buttons .button:active,
+.ui.basic.positive.button:active {
+  -webkit-box-shadow: 0 0 0 1px #1a69a4 inset !important;
+  box-shadow: 0 0 0 1px #1a69a4 inset !important;
+  color: #1a69a4 !important;
+}
