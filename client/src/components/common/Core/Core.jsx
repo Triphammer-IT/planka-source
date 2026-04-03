@@ -63,7 +63,7 @@ const Core = React.memo(() => {
     if (!currentUserId || !accessToken) {
       const el = document.getElementById('planka-theme-css');
       if (el) el.remove();
-      return;
+      return () => {};
     }
     const url = Config.SERVER_BASE_URL
       ? `${Config.SERVER_BASE_URL.replace(/\/$/, '')}/api/users/me/theme.css`

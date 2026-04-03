@@ -11,8 +11,7 @@ export default {
       invalidPassword: 'Invalid password',
       logIn_title: 'Log In',
       noInternetConnection: 'No internet connection',
-      notEnoughRightsCreateUser:
-        'User creation is disabled (e.g. when OIDC login is enforced).',
+      notEnoughRightsCreateUser: 'User creation is disabled (e.g. when OIDC login is enforced).',
       or: 'Or',
       pageNotFound_title: 'Page Not Found',
       password: 'Password',

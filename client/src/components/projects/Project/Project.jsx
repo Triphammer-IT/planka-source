@@ -25,12 +25,20 @@ const Project = React.memo(() => {
   const modal = useSelector(selectors.selectCurrentModal);
   const project = useSelector(selectors.selectCurrentProject);
 
-  const isDarkBoard = project?.backgroundType === ProjectBackgroundTypes.GRADIENT &&
+  const isDarkBoard =
+    project?.backgroundType === ProjectBackgroundTypes.GRADIENT &&
     project?.backgroundGradient &&
     DARK_BACKGROUND_GRADIENTS.has(project.backgroundGradient);
   const isImageBoard = project?.backgroundType === ProjectBackgroundTypes.IMAGE;
-  const cardBgAlpha = isDarkBoard ? CARD_BG_ALPHA_DARK : (isImageBoard ? 0.6 : CARD_BG_ALPHA_LIGHT);
-  const cardHoverAlpha = isDarkBoard ? CARD_HOVER_ALPHA_DARK : (isImageBoard ? 0.72 : CARD_HOVER_ALPHA_LIGHT);
+  let cardBgAlpha = CARD_BG_ALPHA_LIGHT;
+  let cardHoverAlpha = CARD_HOVER_ALPHA_LIGHT;
+  if (isDarkBoard) {
+    cardBgAlpha = CARD_BG_ALPHA_DARK;
+    cardHoverAlpha = CARD_HOVER_ALPHA_DARK;
+  } else if (isImageBoard) {
+    cardBgAlpha = 0.6;
+    cardHoverAlpha = 0.72;
+  }
 
   let modalNode = null;
   if (modal) {

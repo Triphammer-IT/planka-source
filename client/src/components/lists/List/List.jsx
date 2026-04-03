@@ -81,9 +81,10 @@ const List = React.memo(({ id, index }) => {
 
   const wrapperRef = useRef(null);
   const cardsWrapperRef = useRef(null);
-  const collapsedStorageKey = list?.boardId != null && list?.id != null
-    ? `planka-list-collapsed-${list.boardId}-${list.id}`
-    : null;
+  const collapsedStorageKey =
+    list?.boardId != null && list?.id != null
+      ? `planka-list-collapsed-${list.boardId}-${list.id}`
+      : null;
   const [collapsed, setCollapsed] = useState(false);
   const hasReadCollapsedRef = useRef(false);
 
@@ -93,7 +94,9 @@ const List = React.memo(({ id, index }) => {
     try {
       const stored = localStorage.getItem(collapsedStorageKey);
       if (stored === 'true') setCollapsed(true);
-    } catch (_) { /* ignore */ }
+    } catch (_) {
+      /* ignore */
+    }
   }, [collapsedStorageKey]);
 
   const toggleCollapsed = useCallback(() => {
@@ -102,7 +105,9 @@ const List = React.memo(({ id, index }) => {
       const next = !prev;
       try {
         localStorage.setItem(collapsedStorageKey, String(next));
-      } catch (_) { /* ignore */ }
+      } catch (_) {
+        /* ignore */
+      }
       return next;
     });
   }, [collapsedStorageKey]);
@@ -383,8 +388,7 @@ const List = React.memo(({ id, index }) => {
                                 globalStyles[`color${upperFirst(camelCase(list.color))}`],
                               )}
                             />
-                          )}
-                          {' '}
+                          )}{' '}
                           {list.name}
                           {cardIds.length > 0 ? ` (${cardIds.length})` : ''}
                         </span>
@@ -395,9 +399,7 @@ const List = React.memo(({ id, index }) => {
                 </div>
               ) : (
                 <>
-                  <div
-                    style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'center' }}
-                  >
+                  <div style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'center' }}>
                     {isEditNameOpened ? (
                       <EditName listId={id} onClose={handleEditNameClose} />
                     ) : (
@@ -413,12 +415,7 @@ const List = React.memo(({ id, index }) => {
                         )}
                         {list.name}
                         {cardIds.length > 0 && (
-                          <span className={styles.headerCardCount}>
-                            {' '}
-                            (
-                            {cardIds.length}
-                            )
-                          </span>
+                          <span className={styles.headerCardCount}> ({cardIds.length})</span>
                         )}
                       </div>
                     )}
@@ -428,7 +425,9 @@ const List = React.memo(({ id, index }) => {
                       name={ListTypeIcons[list.type]}
                       className={classNames(
                         styles.headerIcon,
-                        list.isPersisted && (canEdit || canArchiveCards) && styles.headerIconHidable,
+                        list.isPersisted &&
+                          (canEdit || canArchiveCards) &&
+                          styles.headerIconHidable,
                       )}
                     />
                   )}

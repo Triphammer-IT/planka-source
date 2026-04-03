@@ -13,3 +13,6 @@ yarn.lock
 
 # Chart dependencies
 **/charts/*.tgz
+
+# Local Vite config (API URL); must not be committed or baked into production bundles
+client/.env
