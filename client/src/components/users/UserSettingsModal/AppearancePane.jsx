@@ -54,7 +54,8 @@ const AppearancePane = React.memo(() => {
 
   const isDirty =
     THEME_KEYS.some((key) => formTheme[key] !== (savedTheme[key] ?? DEFAULT_THEME[key])) ||
-    (Object.keys(savedTheme).length === 0 && THEME_KEYS.some((key) => formTheme[key] !== DEFAULT_THEME[key]));
+    (Object.keys(savedTheme).length === 0 &&
+      THEME_KEYS.some((key) => formTheme[key] !== DEFAULT_THEME[key]));
 
   // type="color" only accepts hex; use fallback for rgba defaults
   const colorInputValue = (key) =>
@@ -63,7 +64,9 @@ const AppearancePane = React.memo(() => {
   return (
     <Tab.Pane attached={false} className={styles.wrapper}>
       <div className={styles.previewSection}>
-        <div className={styles.previewLabel}>{t('common.cardPreview', { context: 'appearance' })}</div>
+        <div className={styles.previewLabel}>
+          {t('common.cardPreview', { context: 'appearance' })}
+        </div>
         <div
           className={styles.previewCard}
           style={{

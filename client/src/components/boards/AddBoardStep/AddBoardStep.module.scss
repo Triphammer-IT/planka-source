@@ -8,14 +8,14 @@
     white-space: nowrap;
   }
 
-  /* Primary submit: always readable (overrides light theme) */
+  /* Primary submit: use theme default (blue); overrides light theme for readability */
   .submitButton {
-    background: #21ba45 !important;
-    border: 1px solid #16ab39 !important;
+    background: #2185d0 !important;
+    border: 1px solid #1678c2 !important;
     color: #fff !important;
 
     &:hover {
-      background: #16ab39 !important;
+      background: #1678c2 !important;
       color: #fff !important;
     }
   }
