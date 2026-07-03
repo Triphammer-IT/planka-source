@@ -52,11 +52,11 @@ module.exports = {
     }
 
     const themeSettings = {};
-    for (const key of ALLOWED_KEYS) {
+    ALLOWED_KEYS.forEach((key) => {
       if (inputs[key] !== undefined) {
         themeSettings[key] = inputs[key];
       }
-    }
+    });
 
     const user = await User.qm.getOneById(currentUser.id);
     if (!user) {

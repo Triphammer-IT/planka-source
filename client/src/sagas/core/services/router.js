@@ -113,6 +113,7 @@ export function* handleLocationChange() {
       break;
     }
     case Paths.BOARDS:
+      isEditModeEnabled = true; // Default to unlocked when viewing a board (was undefined → stayed false on load)
       if (currentBoard) {
         ({ id: currentBoardId } = currentBoard);
 
@@ -147,6 +148,7 @@ export function* handleLocationChange() {
 
       break;
     case Paths.CARDS:
+      isEditModeEnabled = true; // Default to unlocked when viewing a card (board context)
       ({ cardId: currentCardId, boardId: currentBoardId } = yield select(selectors.selectPath));
 
       if (!currentCardId) {

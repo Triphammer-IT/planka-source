@@ -9,11 +9,11 @@
  */
 
 const DEFAULT_THEME = {
-  cardBackground: '#f8f9fa',
-  cardBorder: '#e9ecef',
-  cardShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-  cardHoverBackground: '#f1f3f5',
-  cardHoverShadow: '0 2px 6px rgba(0, 0, 0, 0.12)',
+  cardBackground: 'rgba(255, 255, 255, 0.5)',
+  cardBorder: 'rgba(0, 0, 0, 0.08)',
+  cardShadow: '0 1px 2px rgba(0, 0, 0, 0.06)',
+  cardHoverBackground: 'rgba(255, 255, 255, 0.65)',
+  cardHoverShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
 };
 
 const Errors = {

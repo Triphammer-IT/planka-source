@@ -21,6 +21,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'photoswipe/dist/photoswipe.css';
 import '@gravity-ui/uikit/styles/styles.css';
 import '../../lib/custom-ui/styles.css';
+import '../../theme-overrides.scss';
 
 import '../../styles.module.scss';
 

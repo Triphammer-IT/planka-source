@@ -5,16 +5,21 @@
 
 :global(#app) {
   .addButton {
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.24) !important;
+    border: none !important;
     border-radius: 3px;
-    color: #fff;
+    box-shadow: none !important;
+    color: #fff !important;
     margin-right: 0;
     vertical-align: top;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.4);
-      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(0, 0, 0, 0.32) !important;
+    }
+
+    :global(i.icon) {
+      color: inherit !important;
+      opacity: 1 !important;
     }
   }
 

@@ -8,12 +8,24 @@
  * Requires authentication. Returns text/css with CSS custom properties for card styling.
  */
 
+const DEFAULT_CARD_BG = 'rgba(255, 255, 255, 0.5)';
+
+/** Legacy defaults: treat as floating so card uses alpha without user having to reset. */
+const LEGACY_DEFAULT_CARD_BACKGROUNDS = new Set([
+  '#f8f9fa',
+  '#f1f3f5',
+  '#ebeef0',
+  '#e2e4e6',
+  'rgb(248, 249, 250)',
+  'rgb(241, 243, 245)',
+]);
+
 const DEFAULT_THEME = {
-  cardBackground: '#f8f9fa',
-  cardBorder: '#e9ecef',
-  cardShadow: '0 1px 3px rgba(0, 0, 0, 0.08)',
-  cardHoverBackground: '#f1f3f5',
-  cardHoverShadow: '0 2px 6px rgba(0, 0, 0, 0.12)',
+  cardBackground: DEFAULT_CARD_BG,
+  cardBorder: 'rgba(0, 0, 0, 0.08)',
+  cardShadow: '0 1px 2px rgba(0, 0, 0, 0.06)',
+  cardHoverBackground: 'rgba(255, 255, 255, 0.65)',
+  cardHoverShadow: '0 1px 2px rgba(0, 0, 0, 0.08)',
 };
 
 const Errors = {
@@ -24,11 +36,13 @@ const Errors = {
 
 function buildThemeCss(theme) {
   const t = { ...DEFAULT_THEME, ...theme };
+  const normalizedBg = (t.cardBackground || '').trim().toLowerCase();
+  const useFloatingDefault =
+    t.cardBackground === DEFAULT_CARD_BG || LEGACY_DEFAULT_CARD_BACKGROUNDS.has(normalizedBg);
   return `:root {
-  --planka-card-background: ${t.cardBackground};
+  ${useFloatingDefault ? '--planka-card-bg-alpha: 0.5;\n  --planka-card-hover-bg-alpha: 0.65;' : `--planka-card-background: ${t.cardBackground};\n  --planka-card-hover-background: ${t.cardHoverBackground};`}
   --planka-card-border: ${t.cardBorder};
   --planka-card-shadow: ${t.cardShadow};
-  --planka-card-hover-background: ${t.cardHoverBackground};
   --planka-card-hover-shadow: ${t.cardHoverShadow};
 }
 `;

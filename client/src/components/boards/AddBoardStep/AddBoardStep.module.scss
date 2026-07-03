@@ -8,6 +8,18 @@
     white-space: nowrap;
   }
 
+  /* Primary submit: use theme default (blue); overrides light theme for readability */
+  .submitButton {
+    background: #2185d0 !important;
+    border: 1px solid #1678c2 !important;
+    color: #fff !important;
+
+    &:hover {
+      background: #1678c2 !important;
+      color: #fff !important;
+    }
+  }
+
   .controls {
     display: flex;
     max-width: 280px;
@@ -19,24 +31,31 @@
 
   .field {
     margin-bottom: 8px;
+
+    /* Visible input boundary (overrides light theme) */
+    input {
+      background: #fff !important;
+      border: 1px solid rgba(0, 0, 0, 0.25) !important;
+      color: #1a1a1a !important;
+    }
   }
 
   .importButton {
-    background: transparent;
-    box-shadow: none;
-    color: #6b808c;
-    font-weight: normal;
+    background: #f4f5f7 !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    color: #172b4d !important;
+    font-weight: 500;
     margin-left: auto;
     margin-right: 0;
     overflow: hidden;
     text-align: left;
-    text-decoration: underline;
     text-overflow: ellipsis;
     transition: none;
 
     &:hover {
-      background: rgba(9, 30, 66, 0.08);
-      color: #092d42;
+      background: #ebecf0 !important;
+      border-color: rgba(0, 0, 0, 0.3) !important;
+      color: #172b4d !important;
     }
   }
 
