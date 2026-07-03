@@ -32,3 +32,4 @@ server/private/attachments/*
 !server/private/attachments/.gitkeep
 
 client/dist
+client/.env

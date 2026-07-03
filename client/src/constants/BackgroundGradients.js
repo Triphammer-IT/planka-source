@@ -30,3 +30,29 @@ export default [
   'green-mist',
   'red-curtain',
 ];
+
+/** Gradient slugs considered dark for card readability: use higher card bg alpha. */
+export const DARK_BACKGROUND_GRADIENTS = new Set([
+  'steel-grey',
+  'velvet-lounge',
+  'purple-rain',
+  'blue-steel',
+  'blueish-curve',
+  'lagoon',
+  'red-curtain',
+  'green-ninja',
+  'tzepesch-style',
+  'jungle-mesh',
+  'ocean-dive',
+  'blue-xchange',
+  'blue-danube',
+  'magical-dawn',
+  'sundown-stripe',
+  'midnight-blue',
+  'deep-ocean',
+  'gun-metal',
+  'coral-reef',
+  'warm-rust',
+  'green-eyes',
+  'sky-change',
+]);

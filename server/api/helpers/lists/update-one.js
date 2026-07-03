@@ -150,7 +150,15 @@ module.exports = {
       await sails.helpers.cards.detachCustomFields(cardIds, inputs.board.id, !!values.project);
     }
 
-    const { list, tasks } = await List.qm.updateOne(inputs.record.id, values);
+    const listValues = _.pick(values, ['type', 'position', 'name', 'color', 'boardId']);
+    _.forEach(listValues, (val, key) => {
+      if (_.isUndefined(val)) delete listValues[key];
+    });
+
+    const { list, tasks } = await List.qm.updateOne(
+      { id: inputs.record.id },
+      listValues,
+    );
 
     if (list) {
       if (values.board) {

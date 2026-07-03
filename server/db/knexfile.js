@@ -7,9 +7,13 @@ const path = require('path');
 const dotenv = require('dotenv');
 const _ = require('lodash');
 
-dotenv.config({
-  path: path.resolve(__dirname, '../.env'),
-});
+// Prefer env from Docker/process; only load .env when DATABASE_URL not set (e.g. local dev).
+// Avoids .env sample (postgres@localhost) overriding deploy DATABASE_URL and reading wrong DB.
+if (!process.env.DATABASE_URL) {
+  dotenv.config({
+    path: path.resolve(__dirname, '../.env'),
+  });
+}
 
 function buildSSLConfig() {
   if (process.env.KNEX_REJECT_UNAUTHORIZED_SSL_CERTIFICATE === 'false') {

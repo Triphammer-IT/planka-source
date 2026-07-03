@@ -20,7 +20,10 @@ WORKDIR /app
 
 COPY client .
 
-RUN npm install npm --global \
+# Remove dev .env so the built client uses same-origin /api (no VITE_SERVER_BASE_URL baked in).
+# Otherwise a .env with e.g. VITE_SERVER_BASE_URL=http://10.17.1.15:1337 gets copied and breaks production.
+RUN rm -f .env \
+  && npm install npm --global \
   && npm install --omit=dev \
   && DISABLE_ESLINT_PLUGIN=true npm run build
 
@@ -28,10 +31,9 @@ RUN npm install npm --global \
 FROM node:22-alpine
 
 RUN apk -U upgrade \
-  && apk add bash python3 --no-cache \
+  && apk add bash python3 tzdata --no-cache \
   && npm install npm --global
 
-USER node
 WORKDIR /app
 
 COPY --chown=node:node LICENSE.md .
@@ -43,11 +45,15 @@ COPY --from=server --chown=node:node /app/dist .
 COPY --from=client --chown=node:node /app/dist public
 COPY --from=client --chown=node:node /app/dist/index.html views
 
+# Create venv and .env as root so /app is writable; then chown for node runtime
 RUN python3 -m venv .venv \
   && .venv/bin/pip3 install --upgrade pip \
   && .venv/bin/pip3 install -r requirements.txt --no-cache-dir \
   && mv .env.sample .env \
-  && npm config set update-notifier false
+  && npm config set update-notifier false \
+  && chown -R node:node /app
+
+USER node
 
 VOLUME /app/public/favicons
 VOLUME /app/public/user-avatars

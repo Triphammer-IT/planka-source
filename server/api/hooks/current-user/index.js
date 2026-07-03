@@ -29,7 +29,14 @@ module.exports = function defineCurrentUserHook(sails) {
       return null;
     }
 
-    if (session.httpOnlyToken && httpOnlyToken !== session.httpOnlyToken) {
+    // Require httpOnlyToken to match only when the client sent one (e.g. same-origin).
+    // When client is cross-origin (e.g. Vite :3000 → API :8080), the cookie may not be sent
+    // on reload; allow Bearer-only so bootstrap and other API calls still work.
+    if (
+      session.httpOnlyToken &&
+      httpOnlyToken !== undefined &&
+      httpOnlyToken !== session.httpOnlyToken
+    ) {
       return null;
     }
 

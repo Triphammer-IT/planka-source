@@ -4,7 +4,7 @@
  */
 
 import isEmail from 'validator/lib/isEmail';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +32,22 @@ const createMessage = (error) => {
     return error;
   }
 
-  switch (error.message) {
+  // Socket may pass the response as an array (e.g. 437[{ body, headers, statusCode }]).
+  const err = Array.isArray(error) && error.length > 0 ? error[0] : error;
+
+  // Server can return 403/409 with body like { notEnoughRights: '...' } or { activeLimitReached: '...' };
+  // 500 may return a string body; socket sometimes passes it as err.body or inside an array.
+  const rawMessage =
+    typeof err === 'string'
+      ? err
+      : typeof err?.message === 'string'
+        ? err.message
+        : typeof err?.body === 'string'
+          ? err.body
+          : err?.notEnoughRights || err?.activeLimitReached || null;
+  const message = rawMessage || null;
+
+  switch (message) {
     case 'Email already in use':
       return {
         type: 'error',
@@ -42,6 +57,21 @@ const createMessage = (error) => {
       return {
         type: 'error',
         content: 'common.usernameAlreadyInUse',
+      };
+    case 'Not enough rights':
+      return {
+        type: 'error',
+        content: 'common.notEnoughRightsCreateUser',
+      };
+    case 'Active limit reached':
+      return {
+        type: 'error',
+        content: 'common.activeUsersLimitReached',
+      };
+    case 'Internal Server Error':
+      return {
+        type: 'error',
+        content: 'common.serverError',
       };
     default:
       return {
@@ -69,6 +99,7 @@ const AddStep = React.memo(({ onClose }) => {
 
   const [step, openStep, handleBack] = useSteps();
   const message = useMemo(() => createMessage(error), [error]);
+  const [validationMessage, setValidationMessage] = useState(null);
 
   const [emailFieldRef, handleEmailFieldRef] = useNestedRef('inputRef');
   const [passwordFieldRef, handlePasswordFieldRef] = useNestedRef('inputRef');
@@ -76,6 +107,7 @@ const AddStep = React.memo(({ onClose }) => {
   const [usernameFieldRef, handleUsernameFieldRef] = useNestedRef('inputRef');
 
   const handleSubmit = useCallback(() => {
+    setValidationMessage(null);
     const cleanData = {
       ...data,
       email: data.email.trim(),
@@ -84,22 +116,26 @@ const AddStep = React.memo(({ onClose }) => {
     };
 
     if (!isEmail(cleanData.email)) {
+      setValidationMessage('common.validationInvalidEmail');
       emailFieldRef.current.select();
       return;
     }
 
     if (!cleanData.password || !isPassword(cleanData.password)) {
+      setValidationMessage('common.validationPasswordTooWeak');
       passwordFieldRef.current.focus();
       return;
     }
 
     if (!cleanData.name) {
+      setValidationMessage('common.validationNameRequired');
       nameFieldRef.current.select();
       return;
     }
 
     if (cleanData.username && !isUsername(cleanData.username)) {
-      usernameFieldRef.current.select();
+      setValidationMessage('common.validationUsernameInvalid');
+      usernameFieldRef.current.focus();
       return;
     }
 
@@ -117,6 +153,7 @@ const AddStep = React.memo(({ onClose }) => {
   );
 
   const handleMessageDismiss = useCallback(() => {
+    setValidationMessage(null);
     dispatch(entryActions.clearUserCreateError());
   }, [dispatch]);
 
@@ -164,13 +201,13 @@ const AddStep = React.memo(({ onClose }) => {
         })}
       </Popup.Header>
       <Popup.Content>
-        {message && (
+        {(message || validationMessage) && (
           <Message
             {...{
-              [message.type]: true,
+              [message?.type || 'warning']: true,
             }}
             visible
-            content={t(message.content)}
+            content={t(message ? message.content : validationMessage)}
             onDismiss={handleMessageDismiss}
           />
         )}
